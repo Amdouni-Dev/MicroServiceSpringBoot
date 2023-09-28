@@ -3,6 +3,7 @@ package com.esprit.jobsms;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @SpringBootApplication
+@EnableEurekaClient
 @RestController
 public class JobsMsApplication {
     private final JobService jobService;
@@ -55,7 +57,7 @@ public List<Job> getAllJobs(){
         return jobRepo.findById(id);
     }
 
-    // http://localhost:8050/changeState?id=2 (Postman , chnesta3mel l put  <3  )
+    // http://localhost:8050/changeState?id=2 (Postman , chnesta3mel l put    )
 
     @PutMapping("/changeState")
     @Transactional  // transactional houni hiya ki yabda aanndi opertion fel base de donnees (i transaction)
