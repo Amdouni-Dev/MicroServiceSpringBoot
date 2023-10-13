@@ -21,6 +21,7 @@ public class CandidatRestAPI {
     @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE) @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Candidat> updateCandidat(@PathVariable(value = "id") int id,  @RequestBody Candidat candidat){  return new ResponseEntity<>(candidatService.updateCandidat(id, candidat),  HttpStatus.OK);
     }
+
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE) @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> deleteCandidat(@PathVariable(value = "id") int id){  return new ResponseEntity<>(candidatService.deleteCandidat(id), HttpStatus.OK); }
 
