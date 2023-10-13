@@ -1,0 +1,54 @@
+version: "3.9"
+services:
+
+
+  Candidat:
+    container_name: candidatMSTest
+    image: "ms_candidates"
+    build: .\CandidateMS
+    ports:
+      - "8089:8089"
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://serviceregistry:8020/eureka
+    depends_on:
+      - "Eureka"
+
+  Job:
+    container_name: jobMSTest
+    build: .\JobsMS
+    ports:
+      - "8050:8050"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db-mysql:3306/DBJOBS?createDatabaseIfNotExist=true&userSSL=false&max_allowed_packet=15728640
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://serviceregistry:8020/eureka
+
+
+    image: "jobv2"
+    restart: unless-stopped
+    depends_on:
+      - Eureka
+      - db-mysql
+
+  Eureka:
+    container_name: eurekaTest
+    build: .\Eureka
+    hostname: serviceregistry
+    ports:
+      - "8020:8020"
+    image: "eureka"
+
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://serviceregistry:8020/eureka/
+
+
+  db-mysql:
+    image: "mysql:5.6"
+    container_name: db-mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=DBJOBS
+    ports:
+      - "3310:3306"
+    restart: unless-stopped

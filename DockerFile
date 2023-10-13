@@ -1,4 +1,0 @@
-FROM openjdk:17
-EXPOSE 8050
-ADD target/JobsMS-0.0.1-SNAPSHOT.jar JobsMS-docker.jar
-ENTRYPOINT ["java","-jar","JobsMS-docker.jar"]
